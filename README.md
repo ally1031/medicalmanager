@@ -1,51 +1,44 @@
 
 ## users テーブル
 
-| Column   | Type   | Options     |
-| -------- | ------ | ----------- |
-| name     | string | null: false |
-| email    | string | null: false |
-| password | string | null: false |
+| Column   | Type    | Options     |
+| -------- | ------- | ----------- |
+| name     | string  | null: false |
+| email    | string  | null: false |
+| password | integer | null: false |
 
 ### Association
 
-- has_many :room_users
-- has_many :rooms, through: room_users
-- has_many :messages
+- has_many :notices
+- has_many :medicines
 
-## rooms テーブル
+## medicines テーブル
 
-| Column | Type   | Options     |
-| ------ | ------ | ----------- |
-| name   | string | null: false |
-
-### Association
-
-- has_many :room_users
-- has_many :users, through: room_users
-- has_many :messages
-
-## room_users テーブル
-
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| user   | references | null: false, foreign_key: true |
-| room   | references | null: false, foreign_key: true |
+| Column          | Type    | Options                        |
+| --------------- | ------- | ------------------------------ |
+| medicine_name   | string  | null: false                    |
+| all_tablets     | integer | null: false                    |
+| 1day_tablet     | integer | null: false                    |
+| timezone_id     | integer | null: false                    |
+| memo            | text    |                                | 
+| user_id         | integer | null: false, foreign_key: true | 
 
 ### Association
 
-- belongs_to :room
 - belongs_to :user
+- has_many :notices
 
-## messages テーブル
+## notices テーブル
 
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| content | string     |                                |
-| user    | references | null: false, foreign_key: true |
-| room    | references | null: false, foreign_key: true |
+| Column      | Type    | Options                        |
+| ----------  | ------- | ------------------------------ |
+| start_date  | date    | null: false                    |
+| end_date    | date    | null: false                    |
+| dosing_time | time    | null: false                    |
+| user_id     | integer | null: false, foreign_key: true |
+| user_id     | integer | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :room
+- belongs_to :medicine
 - belongs_to :user
